@@ -18,23 +18,29 @@ class Todo extends Model
     ];
 
     protected $casts = [
-        'completed_at' => 'datetime:' . TodoHelper::DB_TIMESTAMP_FORMAT,
-        'created_at' => 'datetime:' . TodoHelper::DB_TIMESTAMP_FORMAT,
-        'updated_at' => 'datetime:' . TodoHelper::DB_TIMESTAMP_FORMAT,
+        'completed_at' =>  TodoHelper::DB_TIMESTAMP_CAST,
+        'created_at' =>  TodoHelper::DB_TIMESTAMP_CAST,
+        'updated_at' =>  TodoHelper::DB_TIMESTAMP_CAST,
     ];
 
     public function updateWith(array $attrs)
     {
-        if (array_key_exists('completed_at', $attrs)) {
-            $this->completed_at = $attrs['completed_at'];
-            unset($attrs['completed_at']);
-        }
-
         foreach ($attrs as $attr => $value) {
             $this[$attr] = $value;
         }
 
         $this->save();
         return $this;
+    }
+
+    public function stringAttr(string $attrName)
+    {
+        $attr = $this[$attrName];
+
+        if ($attr instanceof \DateTimeInterface) {
+            return TodoHelper::formatDbTimestamp($attr);
+        }
+
+        return $attr;
     }
 }

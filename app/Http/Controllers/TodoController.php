@@ -50,7 +50,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return $todo;
     }
 
     /**
@@ -73,7 +73,8 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->updateWith($request->all());
+        return $todo;
     }
 
     /**
@@ -84,6 +85,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return $todo;
     }
 }

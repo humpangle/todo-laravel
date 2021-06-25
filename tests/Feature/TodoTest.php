@@ -32,9 +32,7 @@ class TodoTest extends TestCase
 
         $this->assertEquals(
             $now,
-            TodoHelper::formatDbTimestamp(
-                $updatedTodo->completed_at
-            )
+            $updatedTodo->stringAttr('completed_at')
         );
     }
 
@@ -73,9 +71,7 @@ class TodoTest extends TestCase
             'title' => 'title1',
         ]);
 
-        $completedAtStr = TodoHelper::formatDbTimestamp($todo->completed_at);
-
-        $this->assertEquals($now, $completedAtStr);
+        $this->assertEquals($now, $todo->stringAttr('completed_at'));
         $this->assertEquals('title1', $todo->title);
 
         $todo->updateWith([
@@ -83,9 +79,8 @@ class TodoTest extends TestCase
         ]);
 
         $updatedTodo = Todo::find($todo->id);
-        $updatedCompletedAtStr = TodoHelper::formatDbTimestamp($updatedTodo->completed_at);
 
-        $this->assertEquals($now, $updatedCompletedAtStr);
+        $this->assertEquals($now, $updatedTodo->stringAttr('completed_at'));
         $this->assertEquals('title2', $updatedTodo->title);
     }
 }
