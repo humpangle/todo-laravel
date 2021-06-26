@@ -4,6 +4,12 @@
   "scripts": {
     "start": "nps"
   },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": ["git add"]
+  },
+  "resolutions": {
+    "vue-loader": "^16.2.0"
+  },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",
     "@testing-library/user-event": "^13.1.9",
@@ -23,6 +29,7 @@
     "babel-loader": "^8.2.2",
     "browser-sync": "^2.27.1",
     "browser-sync-webpack-plugin": "^2.3.0",
+    "chokidar-cli": "^2.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
@@ -42,13 +49,5 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "git add"
-    ]
-  },
-  "resolutions": {
-    "vue-loader": "^16.2.0"
   }
 }

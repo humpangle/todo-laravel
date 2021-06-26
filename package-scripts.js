@@ -1,3 +1,18 @@
+const phpTestCmd = `
+chokidar \
+    "app/**/*.php" \
+    "routes/**/*.php" \
+    "resources/views/**/*.php"  \
+    "database/factories/**/*.php"  \
+    "tests/**/*.php" \
+  --ignore "app/Http/Middleware/**" \
+  --ignore "app/Providers/**" \
+  --ignore "app/Console/Kernel.php" \
+  --ignore "routes/console.php" \
+  --initial \
+  -c "./vendor/bin/sail artisan test --exclude skip"
+`.trim();
+
 module.exports = {
   scripts: {
     dev: "mix",
@@ -22,6 +37,16 @@ module.exports = {
       cy: {
         default: "vue-cli-service test:e2e",
       },
+    },
+    php: {
+      t: {
+        default: phpTestCmd,
+        description: "test watch php",
+      },
+    },
+    p: {
+      default: "prettier --write .",
+      description: "prettier all",
     },
   },
 };
