@@ -2,18 +2,7 @@
   "name": "todo",
   "private": true,
   "scripts": {
-    "dev": "yarn development",
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "prod": "npm run production",
-    "production": "mix --production",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
-    "p:vue": "./node_modules/.bin/prettier --write ./resources/js/vue",
-    "tc:vue": "./node_modules/.bin/tsc --noEmit --project ."
+    "start": "nps"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",
@@ -41,6 +30,7 @@
     "laravel-mix": "^6.0.6",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.19",
+    "nps": "^5.10.0",
     "postcss": "^8.1.14",
     "prettier": "^2.2.1",
     "register-service-worker": "^1.7.1",
