@@ -1,18 +1,3 @@
-const phpTestCmd = `
-chokidar \
-    "app/**/*.php" \
-    "routes/**/*.php" \
-    "resources/views/**/*.php"  \
-    "database/factories/**/*.php"  \
-    "tests/**/*.php" \
-  --ignore "app/Http/Middleware/**" \
-  --ignore "app/Providers/**" \
-  --ignore "app/Console/Kernel.php" \
-  --ignore "routes/console.php" \
-  --initial \
-  -c "./vendor/bin/sail artisan test --exclude skip"
-`.trim();
-
 module.exports = {
   scripts: {
     dev: "mix",
@@ -20,6 +5,17 @@ module.exports = {
     watchPoll: "mix watch -- --watch-options-poll=1000",
     hot: "mix watch --hot",
     prod: "mix --production",
+    p: {
+      default: "prettier --write .",
+      description: "prettier all",
+    },
+    ...vueScripts(),
+    ...phpScripts(),
+  },
+};
+
+function vueScripts() {
+  return {
     vue: {
       t: {
         default: "vue-cli-service test:unit --watch",
@@ -38,15 +34,32 @@ module.exports = {
         default: "vue-cli-service test:e2e",
       },
     },
+  };
+}
+
+function phpScripts() {
+  const chokidarOptionsPhpTestCmd = `
+chokidar \
+    "app/**/*.php" \
+    "routes/**/*.php" \
+    "resources/views/**/*.php"  \
+    "database/factories/**/*.php"  \
+    "tests/**/*.php" \
+  --ignore "app/Http/Middleware/**" \
+  --ignore "app/Providers/**" \
+  --ignore "app/Console/Kernel.php" \
+  --ignore "routes/console.php" \
+  --initial
+`.trim();
+
+  const phpTestCmd = "./vendor/bin/sail artisan test --exclude skip";
+
+  return {
     php: {
       t: {
-        default: phpTestCmd,
+        default: `${chokidarOptionsPhpTestCmd} -c "clear && ${phpTestCmd}"`,
         description: "test watch php",
       },
     },
-    p: {
-      default: "prettier --write .",
-      description: "prettier all",
-    },
-  },
-};
+  };
+}
