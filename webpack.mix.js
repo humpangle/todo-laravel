@@ -33,19 +33,39 @@ mix.browserSync({
     "public/js/**/*.ts",
     "public/css/**/*.css",
   ],
-  // watchOptions: {
-  //     usePolling: true,
-  //     interval: 500,
-  // },
 });
 
 mix
   .webpackConfig({
+    entry: "./resources/js/app.ts",
+    output: {
+      filename: "js/app.js",
+    },
     resolve: {
-      alias: { "@tv": path.resolve(__dirname, "resources/js/vue/src") },
+      extensions: [".tsx", ".ts", ".js", ".vue"],
+      alias: {
+        "@tv": path.resolve(__dirname, "resources/js/vue/src"),
+      },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
+          include: path.resolve(__dirname, "./resources/js"),
+          loader: require.resolve("babel-loader"),
+          options: {
+            configFile: path.resolve(
+              __dirname,
+              "./_js-shared/_babel.config.js",
+            ),
+            cacheDirectory: true,
+            cacheCompression: false,
+            // compact: isEnvProduction,
+          },
+        },
+      ],
     },
   })
-  .ts("resources/js/app.ts", "public/js")
   .vue()
   .postCss("resources/css/app.css", "public/css", [
     //
