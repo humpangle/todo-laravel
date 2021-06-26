@@ -13,39 +13,40 @@ const path = require("path");
  */
 
 const {
-    FORWARD_BROWSER_SYNC_PORT = 3000,
-    FORWARD_BROWSER_SYNC_UI_PORT = 3001,
+  FORWARD_BROWSER_SYNC_PORT = 3000,
+  FORWARD_BROWSER_SYNC_UI_PORT = 3001,
 } = process.env;
 
 mix.browserSync({
-    host: "127.0.0.1",
-    proxy: "localhost",
-    port: FORWARD_BROWSER_SYNC_PORT,
-    ui: {
-        port: FORWARD_BROWSER_SYNC_UI_PORT,
-    },
-    open: false,
-    files: [
-        "app/**/*.php",
-        "resources/views/**/*.php",
-        "packages/mixdinternet/frontend/src/**/*.php",
-        "public/js/**/*.js",
-        "public/js/**/*.ts",
-        "public/css/**/*.css",
-    ],
-    // watchOptions: {
-    //     usePolling: true,
-    //     interval: 500,
-    // },
+  host: "127.0.0.1",
+  proxy: "localhost",
+  port: FORWARD_BROWSER_SYNC_PORT,
+  ui: {
+    port: FORWARD_BROWSER_SYNC_UI_PORT,
+  },
+  open: false,
+  files: [
+    "app/**/*.php",
+    "resources/views/**/*.php",
+    "packages/mixdinternet/frontend/src/**/*.php",
+    "public/js/**/*.js",
+    "public/js/**/*.ts",
+    "public/css/**/*.css",
+  ],
+  // watchOptions: {
+  //     usePolling: true,
+  //     interval: 500,
+  // },
 });
 
-mix.webpackConfig({
+mix
+  .webpackConfig({
     resolve: {
-        alias: { "@": path.resolve(__dirname, "resources/js/vue/src") },
+      alias: { "@tv": path.resolve(__dirname, "resources/js/vue/src") },
     },
-})
-    .ts("resources/js/app.ts", "public/js")
-    .vue()
-    .postCss("resources/css/app.css", "public/css", [
-        //
-    ]);
+  })
+  .ts("resources/js/app.ts", "public/js")
+  .vue()
+  .postCss("resources/css/app.css", "public/css", [
+    //
+  ]);

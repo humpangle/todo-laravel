@@ -1,4 +1,5 @@
 {
+  "name": "todo",
   "private": true,
   "scripts": {
     "dev": "npm run development",
@@ -11,7 +12,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "p:vue": "./node_modules/.bin/prettier --write ./resources/js/vue"
+    "p:vue": "./node_modules/.bin/prettier --write ./resources/js/vue",
+    "tc:vue": "./node_modules/.bin/tsc --noEmit --project ."
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",

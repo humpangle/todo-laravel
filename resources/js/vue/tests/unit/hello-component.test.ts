@@ -1,7 +1,7 @@
-import HelloWorld from "@/components/HelloWorld.vue";
-import { render } from "@testing-library/vue";
-import { duplicateMsgId, msgId } from "@/components/hello-word";
 import userEvent from "@testing-library/user-event";
+import { render } from "@testing-library/vue";
+import { duplicateMsgId, msgId } from "@tv/components/hello-word";
+import HelloWorld from "@tv/components/HelloWorld.vue";
 
 describe("HelloWorld.vue", () => {
   it("renders props.msg when passed", async () => {
