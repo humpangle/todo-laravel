@@ -1,44 +1,27 @@
 const { resolve: resolvePath } = require("path");
+const deepMerge = require("deepmerge");
+const vueTsJestDefaultPreset = require("@vue/cli-plugin-unit-jest/presets/typescript-and-babel/jest-preset.js");
 
-const jestBabelTransform = resolvePath(__dirname, "./_jest-babel-transform.js");
 const jsDir = resolvePath(__dirname, "../resources/js");
 const vueRootDir = `${jsDir}/vue`;
 
-module.exports = {
+const vueJestConfig = deepMerge(vueTsJestDefaultPreset, {
   rootDir: vueRootDir,
-  moduleFileExtensions: [
-    "js",
-    "jsx",
-    "json",
-    // tell Jest to handle *.vue files
-    "vue",
-    "ts",
-    "tsx",
-  ],
   transform: {
     "^.+\\.vue$": require.resolve("vue-jest"),
-    ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$":
-      require.resolve("jest-transform-stub"),
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": jestBabelTransform,
   },
-  transformIgnorePatterns: ["/node_modules/"],
-  // support the same @ -> src alias mapping in source code
+  testMatch: ["**/tests/unit/**/*.test.[jt]s?(x)", "**/__tests__/*.[jt]s?(x)"],
   moduleNameMapper: {
     "^@tv/(.*)$": "<rootDir>/src/$1",
   },
-  testEnvironment: "jest-environment-jsdom-fifteen",
-  // serializer for snapshots
-  snapshotSerializers: ["jest-serializer-vue"],
-  testMatch: ["**/tests/unit/**/*.test.[jt]s?(x)", "**/__tests__/*.[jt]s?(x)"],
-  // https://github.com/facebook/jest/issues/6766
-  testURL: "http://localhost/",
-  watchPlugins: [
-    require.resolve("jest-watch-typeahead/filename"),
-    require.resolve("jest-watch-typeahead/testname"),
-  ],
-  watchPathIgnorePatterns: [
-    "<rootDir>/coverage/",
-    "<rootDir>/service-worker.+",
-    "<rootDir>/serviceWorkerRegistration.*",
-  ],
-};
+  globals: {
+    "ts-jest": {
+      // there must be a `babel.config.js` at project root. Providing the path
+      // to a custom babel config or babel config object here does not work,
+      // even though the documentation for ts-jest states that it should work
+      babelConfig: true,
+    },
+  },
+});
+
+module.exports = vueJestConfig;
