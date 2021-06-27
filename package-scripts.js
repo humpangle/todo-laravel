@@ -1,10 +1,5 @@
 module.exports = {
   scripts: {
-    dev: "mix",
-    watch: "mix watch",
-    watchPoll: "mix watch -- --watch-options-poll=1000",
-    hot: "mix watch --hot",
-    prod: "mix --production",
     p: {
       default: "prettier --write .",
       description: "prettier all",
@@ -18,8 +13,14 @@ function vueScripts() {
   return {
     vue: {
       t: {
-        default: "vue-cli-service test:unit --watch",
-        t: "vue-cli-service test:unit",
+        default: {
+          script: "vue-cli-service test:unit --watch",
+          description: "Run vue test in watch mode",
+        },
+        t: {
+          script: "vue-cli-service test:unit",
+          description: "Run vue test once and exit",
+        },
       },
       lint: {
         default: "vue-cli-service lint",
@@ -57,8 +58,14 @@ chokidar \
   return {
     php: {
       t: {
-        default: `${chokidarOptionsPhpTestCmd} -c "clear && ${phpTestCmd}"`,
-        description: "test watch php",
+        default: {
+          script: `${chokidarOptionsPhpTestCmd} -c "clear && ${phpTestCmd}"`,
+          description: "test watch php",
+        },
+        t: {
+          script: phpTestCmd,
+          description: "test php no watch",
+        },
       },
     },
   };

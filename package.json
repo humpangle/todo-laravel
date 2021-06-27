@@ -1,14 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "npm run development",
-    "development": "mix",
+    "dev": "mix",
     "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "watchPoll": "mix watch -- --watch-options-poll=1000",
     "hot": "mix watch --hot",
-    "prod": "npm run production",
-    "production": "mix --production",
-    "test:unit": "vue-cli-service test:unit"
+    "prod": "mix --production",
+    "nps": "nps"
   },
   "devDependencies": {
     "@testing-library/user-event": "^13.1.9",
@@ -22,10 +20,13 @@
     "axios": "^0.21",
     "browser-sync": "^2.27.3",
     "browser-sync-webpack-plugin": "^2.3.0",
+    "chokidar-cli": "^2.1.0",
     "deepmerge": "^1.5.2",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
+    "nps": "^5.10.0",
     "postcss": "^8.1.14",
+    "prettier": "^1.19.1",
     "register-service-worker": "^1.7.2",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
