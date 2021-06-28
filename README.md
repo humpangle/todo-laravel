@@ -14,7 +14,7 @@
 ```sh
 composer install
 
-npm install
+npm install && npm run dev
 
 cp .env.example .env
 
@@ -33,14 +33,14 @@ FORWARD_BROWSER_SYNC_UI_PORT=
 FORWARD_DB_PORT=
 ```
 
-Visit `http://localhost:$APP_PORT` to see your app.
-
 ## Build and run the docker containers/migrate database
 
 ```sh
 ./vendor/bin/sail up mysql laravel.test
 ./vendor/bin/sail artisan migrate --seed
 ```
+
+Visit `http://localhost:$APP_PORT` to see your app.
 
 ## Run browser sync to watch and reload files on changes
 
