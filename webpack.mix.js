@@ -42,8 +42,6 @@ mix
       alias: { "@tv": path.resolve(__dirname, "resources/js/vue/src") },
     },
   })
+  .postCss("resources/css/app.css", "public/css", [require("tailwindcss")])
   .ts("resources/js/app.ts", "public/js")
-  .vue()
-  .postCss("resources/css/app.css", "public/css", [
-    //
-  ]);
+  .vue();
